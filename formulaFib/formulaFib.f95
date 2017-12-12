@@ -5,6 +5,7 @@ module FormulaFib
     ! NOTE: Only works for small `n` (upto and including n = 46);
     ! otherwise, interger overflow occurs
     function fibonacci(n) result(retval)
+      implicit none
       integer :: n, retval
       retval = nint((phi ** n - (-phi) ** -n) / (2 * phi - 1))
     end function fibonacci
