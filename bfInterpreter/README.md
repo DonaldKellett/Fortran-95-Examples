@@ -27,6 +27,9 @@ This module uses a standard implementation of Brainfuck whose features are highl
 
 Note that this is a **dumb**/**naïve** implementation - it is **not** optimized in *any* manner with regards to performance, nor was it intended to be optimized in any way in the first place.  Therefore, this interpreter is **not** recommended for use in production environments where performance is critical.
 
+### Error Handling
+
+This implementation does **not** include any error handling - it assumes that every program passed in is valid.  Invalid programs such as those containing syntax errors (i.e. unmatched square brackets) or those causing the memory pointer to go out of bounds will yield **undefined** behavior (most likely a segfault).  Programs containing infinite loops would of course fail to terminate as one would expect.
 
 ## Guarantee of correctness of program
 
