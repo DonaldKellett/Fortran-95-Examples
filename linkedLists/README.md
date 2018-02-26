@@ -46,6 +46,25 @@ nd(1, nd(2, nd(3, null()))) ! => 1 -> 2 -> 3 -> null()
 nd(1, nd(2, nd(3))) ! => 1 -> 2 -> 3 -> null()
 ```
 
+### ndinsert(list, item, index)
+
+```fortran
+call ndinsert(type(Node), pointer :: list, integer :: item, index)
+```
+
+Modifies the `list` passed in by inserting the integer `item` at the specified `index`.  **This subroutine does not validate its arguments (e.g. it may attempt to insert a node at a nonzero index of an empty list) - use with care!**
+
+Example:
+
+```fortran
+type(Node), pointer :: myList
+myList => nd(1, nd(2, nd(3))) ! => 1 -> 2 -> 3 -> null()
+call ndinsert(myList, 8, 1) ! => 1 -> 8 -> 2 -> 3 -> null()
+call ndinsert(myList, 11, 4) ! => 1 -> 8 -> 2 -> 3 -> 11 -> null()
+call ndinsert(myList, 13, 0) ! => 13 -> 1 -> 8 -> 2 -> 3 -> 11 -> null()
+call ndinsert(myList, 0, 7) ! => List index out of range - is likely to cause a program crash
+```
+
 ### ndfree(list)
 
 ```fortran

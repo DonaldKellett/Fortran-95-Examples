@@ -23,6 +23,18 @@ module LinkedLists
       list%data = data
       list%next => next
     end function ndWithDataAndNext
+    recursive subroutine ndinsert(list, item, index)
+      type(Node), pointer :: list, temp
+      integer :: item, index
+      if (index == 0) then
+        allocate(temp)
+        temp%data = item
+        temp%next => list
+        list => temp
+      else
+        call ndinsert(list%next, item, index - 1)
+      end if
+    end subroutine ndinsert
     subroutine ndfree(list)
       type(Node), pointer :: list, temp
       do while (associated(list))
