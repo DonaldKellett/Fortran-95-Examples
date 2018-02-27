@@ -65,6 +65,19 @@ call ndinsert(myList, 13, 0) ! => 13 -> 1 -> 8 -> 2 -> 3 -> 11 -> null()
 call ndinsert(myList, 0, 7) ! => List index out of range - is likely to cause a program crash
 ```
 
+### ndtoa(list)
+
+```fortran
+character(:), allocatable :: ndtoa(type(Node), pointer :: list)
+```
+
+Returns a simple, human-readable string representation of the `list` passed in.  The returned string does not contain any leading and/or trailing whitespace.  Example:
+
+```fortran
+print *, ndtoa(nd(1, nd(2, nd(3)))) ! > "1 -> 2 -> 3 -> null()"
+! Note: if you print the string with the default option * as in the example above, the linked list may be displayed with leading and/or trailing whitespace (due to how Fortran works).
+```
+
 ### ndfree(list)
 
 ```fortran

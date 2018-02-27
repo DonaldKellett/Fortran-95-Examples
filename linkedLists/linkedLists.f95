@@ -35,6 +35,18 @@ module LinkedLists
         call ndinsert(list%next, item, index - 1)
       end if
     end subroutine ndinsert
+    recursive function ndtoa(list) result(strrep)
+      type(Node), pointer :: list
+      character(:), allocatable :: strrep, tailrep
+      character(len=11) :: itoa
+      if (associated(list)) then
+        tailrep = ndtoa(list%next)
+        write(itoa, "(I0)") list%data
+        strrep = trim(itoa) // " -> " // tailrep
+      else
+        strrep = "null()"
+      end if
+    end function ndtoa
     subroutine ndfree(list)
       type(Node), pointer :: list, temp
       do while (associated(list))
