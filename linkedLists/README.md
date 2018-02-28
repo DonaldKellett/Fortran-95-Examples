@@ -81,6 +81,18 @@ print *, ndtoa(myList) ! > 1 -> 3 -> null()
 call ndfree(myList) ! Don't forget to free the memory allocated to the list afterwards ;)
 ```
 
+### len(list)
+
+```fortran
+integer :: len(type(Node), pointer :: list)
+```
+
+The `len` intrinsic function is overloaded for computing the length/size of a linked list in this module (`LinkedLists`).  The length of a linked list is defined as the number of (non-null) nodes that it contains.  For example:
+
+```fortran
+print "(I0)", len(nd(1, nd(2, nd(5)))) ! > 3
+```
+
 ### ndtoa(list)
 
 ```fortran

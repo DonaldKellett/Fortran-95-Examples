@@ -1,6 +1,6 @@
 module LinkedLists
   implicit none
-  private :: ndWithData, ndWithDataAndNext
+  private :: ndWithData, ndWithDataAndNext, ndlen
   type Node
     integer :: data
     type(Node), pointer :: next
@@ -8,6 +8,9 @@ module LinkedLists
   interface nd
     module procedure ndWithData, ndWithDataAndNext
   end interface nd
+  interface len
+    module procedure ndlen
+  end interface len
   contains
     function ndWithData(data) result(list)
       integer :: data
@@ -58,6 +61,15 @@ module LinkedLists
         strrep = "null()"
       end if
     end function ndtoa
+    recursive function ndlen(list) result(listlen)
+      type(Node), pointer :: list
+      integer :: listlen
+      if (associated(list)) then
+        listlen = 1 + ndlen(list%next)
+      else
+        listlen = 0
+      end if
+    end function ndlen
     subroutine ndfree(list)
       type(Node), pointer :: list, temp
       do while (associated(list))
