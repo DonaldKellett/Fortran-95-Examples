@@ -81,6 +81,25 @@ print *, ndtoa(myList) ! > 1 -> 3 -> null()
 call ndfree(myList) ! Don't forget to free the memory allocated to the list afterwards ;)
 ```
 
+### ndreverse(list)
+
+```fortran
+call ndreverse(type(Node), pointer :: list)
+```
+
+Reverses the order of the nodes themselves of the `list` provided in place.  If the length of the linked list is `1` or `0` (`null()`) then the list remains unaffected.
+
+Example:
+
+```fortran
+type(Node), pointer :: myList
+myList => nd(3, nd(2, nd(1)))
+print *, ndtoa(myList) ! > 3 -> 2 -> 1 -> null()
+call ndreverse(myList)
+print *, ndtoa(myList) ! > 1 -> 2 -> 3 -> null()
+call ndfree(myList)
+```
+
 ### len(list)
 
 ```fortran

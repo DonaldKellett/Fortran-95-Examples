@@ -49,6 +49,21 @@ module LinkedLists
         call ndremove(list%next, index - 1)
       end if
     end subroutine ndremove
+    recursive subroutine ndreverse(list)
+      type(Node), pointer :: list, newhead, newtail, temp
+      if (len(list) > 1) then
+        newhead => list
+        do while (associated(newhead%next))
+          temp => newhead
+          newhead => newhead%next
+        end do
+        temp%next => null()
+        newtail => list
+        call ndreverse(newtail)
+        newhead%next => newtail
+        list => newhead
+      end if
+    end subroutine ndreverse
     recursive function ndtoa(list) result(strrep)
       type(Node), pointer :: list
       character(:), allocatable :: strrep, tailrep
