@@ -35,6 +35,17 @@ module LinkedLists
         call ndinsert(list%next, item, index - 1)
       end if
     end subroutine ndinsert
+    recursive subroutine ndremove(list, index)
+      type(Node), pointer :: list, temp
+      integer :: index
+      if (index == 0) then
+        temp => list%next
+        deallocate(list)
+        list => temp
+      else
+        call ndremove(list%next, index - 1)
+      end if
+    end subroutine ndremove
     recursive function ndtoa(list) result(strrep)
       type(Node), pointer :: list
       character(:), allocatable :: strrep, tailrep

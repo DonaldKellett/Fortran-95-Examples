@@ -65,6 +65,22 @@ call ndinsert(myList, 13, 0) ! => 13 -> 1 -> 8 -> 2 -> 3 -> 11 -> null()
 call ndinsert(myList, 0, 7) ! => List index out of range - is likely to cause a program crash
 ```
 
+### ndremove(list, index)
+
+```fortran
+call ndremove(type(Node), pointer :: list, integer :: index)
+```
+
+Modifies the `list` passed in by removing the node at the specified `index`.  Note that the behavior of this subroutine is undefined if an out-of-range (or invalid) index is provided.  This subroutine also frees the memory previously allocated to the node removed.  Example:
+
+```fortran
+type(Node), pointer :: myList
+myList => nd(1, nd(2, nd(3))) ! 1 -> 2 -> 3 -> null()
+call ndremove(myList, 1) ! Removes the node located at position 1 (0-indexed)
+print *, ndtoa(myList) ! > 1 -> 3 -> null()
+call ndfree(myList) ! Don't forget to free the memory allocated to the list afterwards ;)
+```
+
 ### ndtoa(list)
 
 ```fortran
