@@ -76,6 +76,21 @@ module LinkedLists
         strrep = "null()"
       end if
     end function ndtoa
+    recursive function atond(strrep) result(list)
+      character(len=*) :: strrep
+      type(Node), pointer :: list
+      integer :: n
+      character(len=2) :: nrep
+      if (strrep == "null()") then
+        list => null()
+      else
+        n = index(strrep, " ")
+        write(nrep, "(I0)") n
+        allocate(list)
+        read(strrep, "(I" // nrep // ")") list%data
+        list%next => atond(strrep((n + 4):len(strrep)))
+      end if
+    end function atond
     recursive function ndlen(list) result(listlen)
       type(Node), pointer :: list
       integer :: listlen

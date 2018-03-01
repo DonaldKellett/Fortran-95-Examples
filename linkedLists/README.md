@@ -125,6 +125,23 @@ print *, ndtoa(nd(1, nd(2, nd(3)))) ! > "1 -> 2 -> 3 -> null()"
 ! Note: if you print the string with the default option * as in the example above, the linked list may be displayed with leading and/or trailing whitespace (due to how Fortran works).
 ```
 
+### atond(strrep)
+
+```fortran
+type(Node), pointer :: atond(character(len=*) :: strrep)
+```
+
+Parses a string representation of a linked list `strrep` and returns the corresponding linked list constructed from the `nd()` constructor.  This function allocates memory dynamically (except when it is `null()`) so make sure to call `ndfree()` on the resulting linked list once you have finished using it.  This function assumes that `strrep` is a valid string representation of a linke list - attempts to pass in strings with an invalid format will result in undefined behavior.  A valid representation of a linked list has the format `a0 -> a1 -> a2 -> ... -> an -> null()` where `a0` through `an` are string representations of valid (default) integers, be it positive, zero or negative.
+
+Example:
+
+```fortran
+type(Node), pointer :: myList
+myList => atond("1 -> 2 -> 3 -> null()") ! => 1 -> 2 -> 3 -> null()
+print *, ndtoa(myList) ! > "1 -> 2 -> 3 -> null()"
+call ndfree(myList)
+```
+
 ### ndfree(list)
 
 ```fortran
